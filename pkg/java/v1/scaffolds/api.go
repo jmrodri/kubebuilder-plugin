@@ -1,4 +1,4 @@
-package scaffolds
+	package scaffolds
 
 import (
 	"fmt"

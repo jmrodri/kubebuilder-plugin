@@ -54,5 +54,6 @@ func (s *initScaffolder) Scaffold() error {
 		},
 		&templates.PomXmlFile{},
 		&templates.DockerFile{},
+		&templates.GitIgnore{},
 	)
 }

@@ -19,14 +19,14 @@ func (f *DockerFile) SetTemplateDefaults() error {
 }
 
 // TODO: pass in the name of the operator i.e. replace Memcached
-const dockerfileTemplate = `FROM quay.io/operator-framework/java-operator:{{ .JavaOperatorVersion }}
+const dockerfileTemplate = `#FROM quay.io/operator-framework/java-operator:{{ .JavaOperatorVersion }}
 
-COPY requirements.yml ${HOME}/requirements.yml
-RUN ansible-galaxy collection install -r ${HOME}/requirements.yml \
-&& chmod -R ug+rwx ${HOME}/.ansible
+#COPY requirements.yml ${HOME}/requirements.yml
+#RUN ansible-galaxy collection install -r ${HOME}/requirements.yml \
+#&& chmod -R ug+rwx ${HOME}/.ansible
 
-COPY watches.yaml ${HOME}/watches.yaml
-COPY {{ .RolesDir }}/ ${HOME}/{{ .RolesDir }}/
-COPY {{ .PlaybooksDir }}/ ${HOME}/{{ .PlaybooksDir }}/
+#COPY watches.yaml ${HOME}/watches.yaml
+#COPY {{ .RolesDir }}/ ${HOME}/{{ .RolesDir }}/
+#COPY {{ .PlaybooksDir }}/ ${HOME}/{{ .PlaybooksDir }}/
 `
 

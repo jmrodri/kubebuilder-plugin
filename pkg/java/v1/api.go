@@ -33,7 +33,6 @@ import (
 
 type createAPIOptions struct {
 	CRDVersion         string
-	DoRole, DoPlaybook bool
 }
 
 type createAPISubcommand struct {
@@ -79,7 +78,7 @@ func (p *createAPISubcommand) PostScaffold() error {
 }
 
 func (p *createAPISubcommand) Scaffold(fs machinery.Filesystem) error {
-	scaffolder := scaffolds.NewCreateAPIScaffolder(p.config, *p.resource, p.options.DoRole, p.options.DoPlaybook)
+	scaffolder := scaffolds.NewCreateAPIScaffolder(p.config, *p.resource)
 	scaffolder.InjectFS(fs)
 	if err := scaffolder.Scaffold(); err != nil {
 		return err

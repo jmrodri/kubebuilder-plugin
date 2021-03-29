@@ -16,16 +16,13 @@ type apiScaffolder struct {
 	config   config.Config
 	resource resource.Resource
 
-	doRole, doPlaybook bool
 }
 
 // NewCreateAPIScaffolder returns a new plugins.Scaffolder for project initialization operations
-func NewCreateAPIScaffolder(cfg config.Config, res resource.Resource, doRole, doPlaybook bool) plugins.Scaffolder {
+func NewCreateAPIScaffolder(cfg config.Config, res resource.Resource) plugins.Scaffolder {
 	return &apiScaffolder{
 		config:     cfg,
 		resource:   res,
-		doRole:     doRole,
-		doPlaybook: doPlaybook,
 	}
 }
 

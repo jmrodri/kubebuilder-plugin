@@ -1,6 +1,9 @@
 package util
 
 import (
+	"fmt"
+	"os"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -9,6 +12,7 @@ var _ = Describe("util", func() {
 
 	Describe("ReverseDomain", func() {
 		It("should reverse the string", func() {
+			fmt.Println(os.Getenv("FOO_BAR"))
 			Expect("io.java", ReverseDomain("java.io"))
 			Expect("com.example", ReverseDomain("example.com"))
 			Expect("no/dots/leave/alone", ReverseDomain("no/dots/leave/alone"))
@@ -22,9 +26,11 @@ var _ = Describe("util", func() {
 
 	Describe("ToCamel", func() {
 		It("should convert to Camel", func() {
+			fmt.Println(os.Getenv("FOO_BAR"))
 			Expect("appTest", ToCamel("app_test"))
 		})
 		It("should convert to Camel when start with _", func() {
+			fmt.Println(os.Getenv("FOO_BAR"))
 			Expect("AppTest", ToCamel("_app_test"))
 			Expect("JavaOp", ToCamel("java-op"))
 		})

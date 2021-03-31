@@ -41,21 +41,16 @@ type createAPISubcommand struct {
 }
 
 func (opts createAPIOptions) UpdateResource(res *resource.Resource) {
-
-	fmt.Println("Entered UpdateResource")
+	fmt.Println("UpdateResource called")
 
 	res.API = &resource.API{
 		CRDVersion: opts.CRDVersion,
 		Namespaced: true,
 	}
 
-	fmt.Printf("XXX path before: %v\n", res.Path)
-	fmt.Printf("XXX controller before: %v\n", res.Controller)
 	// Ensure that Path is empty and Controller false as this is not a Go project
 	res.Path = ""
 	res.Controller = false
-	fmt.Printf("XXX path after: %v\n", res.Path)
-	fmt.Printf("XXX controller after: %v\n", res.Controller)
 }
 
 var (
@@ -63,7 +58,6 @@ var (
 )
 
 func (p *createAPISubcommand) BindFlags(fs *pflag.FlagSet) {
-	fmt.Println("XXX Entered BindFlags")
 	fs.SortFlags = false
 	fs.StringVar(&p.options.CRDVersion, "crd-version", "v1", "crd version to generate")
 }
@@ -75,17 +69,17 @@ func (p *createAPISubcommand) InjectConfig(c config.Config) error {
 }
 
 func (p *createAPISubcommand) Run(fs machinery.Filesystem) error {
-	fmt.Println("create called")
+	fmt.Println("Run called")
 	return nil
 }
 
 func (p *createAPISubcommand) Validate() error {
-	fmt.Println("validate called")
+	fmt.Println("Validate called")
 	return nil
 }
 
 func (p *createAPISubcommand) PostScaffold() error {
-	fmt.Println("postscaffold called")
+	fmt.Println("PostScaffold called")
 	return nil
 }
 
@@ -101,36 +95,30 @@ func (p *createAPISubcommand) Scaffold(fs machinery.Filesystem) error {
 }
 
 func (p *createAPISubcommand) InjectResource(res *resource.Resource) error {
-	fmt.Println("Entered InjectResource")
+	fmt.Println("InjectResource called")
 	p.resource = res
 
 	// RESOURCE: &{{cache zeusville.com v1 Joke} jokes  0xc00082a640 false 0xc00082a680}
-	fmt.Printf("RESOURCE: %+v\n", res)
 	p.options.UpdateResource(p.resource)
 
 	if err := p.resource.Validate(); err != nil {
-		fmt.Println("InjectResource returning validation error")
 		return err
 	}
 
 	// Check that resource doesn't have the API scaffolded
 	if res, err := p.config.GetResource(p.resource.GVK); err == nil && res.HasAPI() {
-		fmt.Println("InjectResource returning 'already exists' error")
 		return errors.New("the API resource already exists")
 	}
 
 	// Check that the provided group can be added to the project
 	if !p.config.IsMultiGroup() && p.config.ResourcesLength() != 0 && !p.config.HasGroup(p.resource.Group) {
-		fmt.Println("InjectResource returning 'multiple groups' error")
 		return fmt.Errorf("multiple groups are not allowed by default, to enable multi-group set 'multigroup: true' in your PROJECT file")
 	}
 
 	// Selected CRD version must match existing CRD versions.
 	if pluginutil.HasDifferentCRDVersion(p.config, p.resource.API.CRDVersion) {
-		fmt.Println("InjectResource returning 'only one CRD version' error")
 		return fmt.Errorf("only one CRD version can be used for all resources, cannot add %q", p.resource.API.CRDVersion)
 	}
 
-	fmt.Println("Exiting InjectResource")
 	return nil
 }

@@ -8,6 +8,7 @@ import (
 	"sigs.k8s.io/kubebuilder/v3/pkg/model/resource"
 	"sigs.k8s.io/kubebuilder/v3/pkg/plugins"
 
+	"github.com/java-operator-sdk/kubebuilder-plugin/pkg/java/v1/scaffolds/internal/templates/controller"
 	"github.com/java-operator-sdk/kubebuilder-plugin/pkg/java/v1/scaffolds/internal/templates/model"
 	"github.com/java-operator-sdk/kubebuilder-plugin/pkg/java/v1/util"
 )
@@ -62,6 +63,10 @@ func (s *apiScaffolder) Scaffold() error {
 			ClassName: util.ToClassname(s.resource.Kind),
 		},
 		&model.ModelStatus{
+			Package:   util.ReverseDomain(s.config.GetDomain()),
+			ClassName: util.ToClassname(s.resource.Kind),
+		},
+		&controller.Controller{
 			Package:   util.ReverseDomain(s.config.GetDomain()),
 			ClassName: util.ToClassname(s.resource.Kind),
 		},

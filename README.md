@@ -25,14 +25,7 @@ github.com/java-operator-sdk/kubebuilder-plugin => /Users/sushah/go/src/github.c
 javav1 "github.com/java-operator-sdk/kubebuilder-plugin/pkg/java/v1"
 ```
 
-- Introduce the java bundle in `GetPluginsCLIAndRoot()` method. 
-```
-javaBundle, _ := plugin.NewBundle("quarkus"+plugins.DefaultNameQualifier, plugin.Version{Number: 1},
-		&javav1.Plugin{},
-	)
-```
-
-- Add the created javaBundle to the `cli.New`
+- Add the java Plugin to the `cli.New`
 
 ```
     cli.WithPlugins(
@@ -40,7 +33,7 @@ javaBundle, _ := plugin.NewBundle("quarkus"+plugins.DefaultNameQualifier, plugin
 			gov2Bundle,
 			gov3Bundle,
 			helmBundle,
-			javaBundle,
+			&javav1.Plugin{},
 		),
 ```
 

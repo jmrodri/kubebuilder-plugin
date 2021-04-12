@@ -22,7 +22,6 @@ type apiScaffolder struct {
 
 // NewCreateAPIScaffolder returns a new plugins.Scaffolder for project initialization operations
 func NewCreateAPIScaffolder(cfg config.Config, res resource.Resource) plugins.Scaffolder {
-	fmt.Println("NewCreateAPIScaffolder called")
 	return &apiScaffolder{
 		config:   cfg,
 		resource: res,

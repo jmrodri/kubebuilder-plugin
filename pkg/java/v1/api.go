@@ -31,7 +31,7 @@ import (
 )
 
 type createAPIOptions struct {
-	CRDVersion         string
+	CRDVersion string
 }
 
 type createAPISubcommand struct {
